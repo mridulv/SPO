@@ -1,5 +1,5 @@
 <?php
-if (isset($_COOKIE['user'])&& !strcmp($_COOKIE['role'],'student')){
+if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 session_start();
 ?>
 <html>

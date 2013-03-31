@@ -111,15 +111,64 @@ session_start();
 <div id="new-pos">
 	<?php
 		echo "<ul>";
-		for ($i=0;$i<5;$i++){
-			echo '<li><a href="#tabs-'.$i.'">Nunc tincidunt</a></li>';
+		mysql_connect("localhost","root","mridul")
+		or die("<h3>could not connect to MySQL</h3>\n");
+		mysql_select_db("test")
+		or die("<h3>could not select database 'test'</h3>\n");
+
+		$k=$_COOKIE['user'];
+		$i=0;
+		$result= mysql_query("select * from job_offering where company_id=".$k);
+		while($row=mysql_fetch_array($result)){
+			$t = $row['designation'];
+			echo '<li><a href="#tabs-'.$i.'">'.$t.'</a></li>';
+			$i++;
 		}
 		echo "</ul>";
-		for ($i=0;$i<5;$i++){
-			echo '<div id="tabs-'.$i.'">
+		$k=$_COOKIE['user'];
+		$p=0;
+		$result= mysql_query("select * from job_offering where company_id=".$k);
+		while($row=mysql_fetch_array($result)){
+			$a=$row['designation'];
+			$b=$row['Number_of_posts'];
+			$c=$row['description'];
+			$t=$row['departments'];
+			$y=$row['degree'];
+			$d=$row['Min_CPI'];
+			$e=$row['Max_CPI'];
+			$f=$row['Basic'];
+			$g=$row['HRA'];
+			$h=$row['Sign_In_Bonus'];
+			$i=$row['Shares_Worth'];
+			echo '<div id="tabs-'.$p.'">
 					<table cellspacing="5" border="0" cellpadding="0">
 					<tr valign="top" align="left">
-					<td width="600" height="500px" style="border:1px solid black;"><p>The Description of the profile Goes here</p></td>
+					<td width="600" height="500px" style="border:1px solid black;"><p>
+					<table>
+					<tr><td><label><b>Designation</b></label></td>
+					<td>'.$a.'</td></tr>
+					<tr><td><label><b>Number of Posts</b></label></td>
+					<td>'.$b.'</td></tr>
+					<tr><td><label><b>Description Of the Profile</b></label></td>
+					<td>'.$c.'</td></tr>	
+					<tr><td><label><b>Departments of Students should be among </b></label></td>
+					<td>'.$t.'</td></tr>
+					<tr><td><label><b>Degree of Student should be among </b></label></td>
+					<td>'.$y.'</td></tr>
+					<tr><td><label><b>Min. CPI </b></label></td>
+					<td>'.$d.'</td></tr>
+					<tr><td><label><b>Max. CPI </b></label></td>
+					<td>'.$e.'</td></tr>
+					<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+					<td>'.$f.'</td></tr>
+					<tr><td><label><b>HRA (in lakhs)</b></label></td>
+					<td>'.$g.'</td></tr>
+					<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+					<td>'.$h.'</td></tr>
+					<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+					<td>'.$i.'</td></tr>
+					</table>
+					</p></td>
 					<td width="1" height="500px" bgcolor="#aaaaaa"><BR></td>
 					<td width="600" height="500px" valign="top" align="center" style="border:1px solid black;">
 					<p>Here is the news</p><form method="get" action="select.php?prof=0">';
@@ -127,10 +176,11 @@ session_start();
 						echo '<div class="comp-short"><input type="checkbox" name="student" value="mridul">mridul'.$j.'</div>';
 					}
 
-				echo '<input type="text" name="profile_no" value="'.$i.'" style="display:none;"><input type="submit" value="submit"/></form></td>
+				echo '<input type="text" name="profile_no" value="'.$p.'" style="display:none;"><input type="submit" value="submit"/></form></td>
 					</tr>
 					</table>
 			</div>';
+			$i++;
 		}
 	?>
 </div>

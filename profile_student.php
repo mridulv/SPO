@@ -127,9 +127,9 @@ session_start();
 		</select></td></tr>
 		<tr><td><label>Degree</label></td>
 		<td><select name="degree">
-			<option value="btech">B tech</option>
-			<option value="dual">B tech-M tech ( Dual )</option>
-			<option value="mtech">M tech</option>
+			<option value="Btech">B tech</option>
+			<option value="Mtech(Dual)">B tech-M tech ( Dual )</option>
+			<option value="Mtech">M tech</option>
 		</select></td></tr>
 		<tr><td><label>CPI</label></td>
 		<td><input type="text" name="cpi"/></td></tr>

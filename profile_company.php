@@ -99,17 +99,21 @@ session_start();
 <body>
 <div id="header">
 	<div class="content"><font color="#fff" size="5px">Logout</font></div>
-	<div class="content" onclick="window.location='regis.php'"><font color="#fff" size="5px">Back</font></div>
+	<div class="content" onclick="window.location='regis-com.php'"><font color="#fff" size="5px">Back</font></div>
 </div>
 <div class="other">
-	<form action="fill_profile_company.php" method="post" id="usrform">
+	<form action="fill_profile_company.php" method="get" id="usrform">
 		<table>
 		<tr><td><label>Designation</label></td>
 		<td><input type="text" name="desig" required="required"/></td></tr>
 		<tr><td><label>Number of Posts</label></td>
 		<td><input type="number" name="num_posts" required="required"/></td></tr>
 		<tr><td><label>Description Of the Profile</label></td>
-		<td><textarea rows="4" cols="50" name="profile" form="usrform">Enter text here...</textarea></td></tr>		
+		<td><textarea rows="4" cols="50" name="profile" form="usrform">Enter text here...</textarea></td></tr>	
+		<tr><td><label>Departments of Students ( seperated by comma )</label></td>
+		<td><input type="text" name="dept" required="required" placeholder="CSE,EE,MTH"/></td></tr>
+		<tr><td><label>Degree of Student  ( seperated by comma )</label></td>
+		<td><input type="text" name="degr" required="required" placeholder="Btech,Mtech(Dual),Mtech"/></td></tr>
 		<tr><td><label>Min. CPI </label></td>
 		<td><input type="text" name="min_cpi" required="required"/></td></tr>
 		<tr><td><label>Max. CPI (optional)</label></td>
@@ -122,7 +126,7 @@ session_start();
 		<td><input type="text" name="bonus"/></td></tr>
 		<tr><td><label>Shares Worth (optional) (in lakhs)</label></td>
 		<td><input type="text" name="shares"/></td></tr>
-		<tr><td><input type="submit" value="submit"/></td></tr>
+		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>
 </div>
