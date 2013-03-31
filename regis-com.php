@@ -170,17 +170,34 @@ session_start();
 					</table>
 					</p></td>
 					<td width="1" height="500px" bgcolor="#aaaaaa"><BR></td>
-					<td width="600" height="500px" valign="top" align="center" style="border:1px solid black;">
-					<p>Here is the news</p><form method="get" action="select.php?prof=0">';
-					for ($j=0;$j<5;$j++){
-						echo '<div class="comp-short"><input type="checkbox" name="student" value="mridul">mridul'.$j.'</div>';
+					<td width="600" height="500px" valign="top" align="center" style="border:1px solid black;">';
+
+					$resultn2= mysql_query("select * from company_hires NATURAL JOIN student where company_id=".$k." and designation='".$row['designation']."'");
+					if (mysql_num_rows($resultn2) !=0){
+						echo '<p>Students Selected For this Profile</p>';
+						while($rown2=mysql_fetch_array($resultn2)){
+							$r=$rown2['name'];
+							echo '<div class="comp-short">'.$r.'</div>';
+						}
+					}
+					else{
+					echo '<p>Students Applied For this Profile</p>
+					<form method="post" action="select.php">';
+					$resultn= mysql_query("select * from applied_for NATURAL JOIN student where company_id=".$k." and designation='".$row['designation']."'");
+					
+					while($rown=mysql_fetch_array($resultn)){
+						$r=$rown['name'];
+						echo '<input type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div class="comp-short">'.$r.'</div>';
 					}
 
-				echo '<input type="text" name="profile_no" value="'.$p.'" style="display:none;"><input type="submit" value="submit"/></form></td>
+						echo '<input type="submit" value="submit" name="submit"/></form>';
+					}
+					
+					echo '</td>
 					</tr>
 					</table>
 			</div>';
-			$i++;
+			$p++;
 		}
 	?>
 </div>

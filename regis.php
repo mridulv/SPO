@@ -256,13 +256,16 @@ session_start();
 <div id="company-content">
 	<h2><u>New Companies</u></h2>
 	<div id="job-new">
-		<form action="application.php" method="get">
 		<?php
 			mysql_connect("localhost","root","mridul")
 			or die("<h3>could not connect to MySQL</h3>\n");
 			mysql_select_db("test")
 			or die("<h3>could not select database 'test'</h3>\n");
 
+			$resultm= mysql_query("select * from student where roll=".$_COOKIE['user']);
+			$rowm=mysql_fetch_array($resultm);
+			if ($rowm['status']==0){
+			echo '<form action="application.php" method="post">';
 			$result3= mysql_query("select * from student_degree where roll=".$_COOKIE['user']);
 			$row3=mysql_fetch_array($result3);
 
@@ -298,12 +301,16 @@ session_start();
 								<p>Tab'.$i.'</p>	
 							</div>
 						</div>';
+						}
 					}
 				}
+				echo '<input type="submit" value="submit" name="submit"/>
+					  </form>';
+			}
+			else{
+					echo 'you are already placed :)';
 			}
 		?>
-		<input type="submit" value="submit" name="submit"/>
-		</form>
 	</div>
 </div>
 </body>
