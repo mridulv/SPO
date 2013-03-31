@@ -142,22 +142,111 @@ session_start();
 
 			$result4= mysql_query("select * from applied_for NATURAL JOIN Company where roll=".$_COOKIE['user']);
 			
-			while($row4=mysql_fetch_array($result4)){
-				$result5= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']." and designation=".$row4['designation']." and company_id=".$row['company_id']);
+			while($row4=mysql_fetch_array($result4)){ 
+
+				$result5= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']." and designation='".$row4['designation']."' and company_id=".$row4['company_id']);
+				$result6= mysql_query("select * from job_offering where company_id=".$row4['company_id']." and designation='".$row4['designation']."'");
+				$row=mysql_fetch_array($result6);
+				$a=$row['designation'];
+				$b=$row['Number_of_posts'];
+				$c=$row['description'];
+				$t=$row['departments'];
+				$y=$row['degree'];
+				$d=$row['Min_CPI'];
+				$e=$row['Max_CPI'];
+				$f=$row['Basic'];
+				$g=$row['HRA'];
+				$h=$row['Sign_In_Bonus'];
+				$i=$row['Shares_Worth'];
 				if (mysql_num_rows($result5)!=0){					
 					$row5=mysql_fetch_array($result5);
 					echo '<div class="head-app">'.$row5['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
-					echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';
+					echo '<div class="detail-app">
+					<table>
+					<tr><td><label><b>Designation</b></label></td>
+					<td>'.$a.'</td></tr>
+					<tr><td><label><b>Number of Posts</b></label></td>
+					<td>'.$b.'</td></tr>
+					<tr><td><label><b>Description Of the Profile</b></label></td>
+					<td>'.$c.'</td></tr>	
+					<tr><td><label><b>Departments of Students should be among </b></label></td>
+					<td>'.$t.'</td></tr>
+					<tr><td><label><b>Degree of Student should be among </b></label></td>
+					<td>'.$y.'</td></tr>
+					<tr><td><label><b>Min. CPI </b></label></td>
+					<td>'.$d.'</td></tr>
+					<tr><td><label><b>Max. CPI </b></label></td>
+					<td>'.$e.'</td></tr>
+					<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+					<td>'.$f.'</td></tr>
+					<tr><td><label><b>HRA (in lakhs)</b></label></td>
+					<td>'.$g.'</td></tr>
+					<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+					<td>'.$h.'</td></tr>
+					<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+					<td>'.$i.'</td></tr>
+					</table>
+					</div>';
 				}
 				else{
-					$result5= mysql_query("select * from company_hires NATURAL JOIN Company where designation=".$row4['designation']." and company_id=".$row['company_id']);					
+					$result5= mysql_query("select * from company_hires NATURAL JOIN Company where designation='".$row4['designation']."' and company_id=".$row4['company_id']);					
 					if (mysql_num_rows($result5)==0){					
 						echo '<div class="head-app">'.$row4['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : No</div>';
-						echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';
+						echo '<div class="detail-app">
+						<table>
+						<tr><td><label><b>Designation</b></label></td>
+						<td>'.$a.'</td></tr>
+						<tr><td><label><b>Number of Posts</b></label></td>
+						<td>'.$b.'</td></tr>
+						<tr><td><label><b>Description Of the Profile</b></label></td>
+						<td>'.$c.'</td></tr>	
+						<tr><td><label><b>Departments of Students should be among </b></label></td>
+						<td>'.$t.'</td></tr>
+						<tr><td><label><b>Degree of Student should be among </b></label></td>
+						<td>'.$y.'</td></tr>
+						<tr><td><label><b>Min. CPI </b></label></td>
+						<td>'.$d.'</td></tr>
+						<tr><td><label><b>Max. CPI </b></label></td>
+						<td>'.$e.'</td></tr>
+						<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+						<td>'.$f.'</td></tr>
+						<tr><td><label><b>HRA (in lakhs)</b></label></td>
+						<td>'.$g.'</td></tr>
+						<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+						<td>'.$h.'</td></tr>
+						<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+						<td>'.$i.'</td></tr>
+						</table>
+						</div>';
 					}
 					else{
 						echo '<div class="head-app">'.$row4['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : No</div>';
-						echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';						
+						echo '<div class="detail-app">
+						<table>
+						<tr><td><label><b>Designation</b></label></td>
+						<td>'.$a.'</td></tr>
+						<tr><td><label><b>Number of Posts</b></label></td>
+						<td>'.$b.'</td></tr>
+						<tr><td><label><b>Description Of the Profile</b></label></td>
+						<td>'.$c.'</td></tr>	
+						<tr><td><label><b>Departments of Students should be among </b></label></td>
+						<td>'.$t.'</td></tr>
+						<tr><td><label><b>Degree of Student should be among </b></label></td>
+						<td>'.$y.'</td></tr>
+						<tr><td><label><b>Min. CPI </b></label></td>
+						<td>'.$d.'</td></tr>
+						<tr><td><label><b>Max. CPI </b></label></td>
+						<td>'.$e.'</td></tr>
+						<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+						<td>'.$f.'</td></tr>
+						<tr><td><label><b>HRA (in lakhs)</b></label></td>
+						<td>'.$g.'</td></tr>
+						<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+						<td>'.$h.'</td></tr>
+						<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+						<td>'.$i.'</td></tr>
+						</table>
+						</div>';						
 					}
 				}
 			}
