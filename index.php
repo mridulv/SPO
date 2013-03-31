@@ -39,6 +39,14 @@ setcookie("user","",time()-3600);
                                     <label for="password" class="youpasswd" data-icon="p"> Your password </label>
                                     <input id="password" name="pass" required="required" type="password" placeholder="eg. X8df!90EO" /> 
                                 </p>
+                                <p> 
+                                    <label for="username" class="uname"> Login As :</label>
+                                    <select name="role" id="username" required="required">
+                                        <option value="student">Student</option>
+                                        <option value="company">Company</option>
+                                        <option value="alumni">Alumni</option>
+                                    </select>
+                                </p>
 								<?php
 								if (isset($_REQUEST['password']) && $_REQUEST['password']=='incorrect'){
 									echo "<p class='qwe'><label><h2>Wrong username or password</h2></label></p>";
@@ -46,10 +54,6 @@ setcookie("user","",time()-3600);
 								?>
                                 <p class="login button"> 
                                     <input type="submit" value="Login" name="login"/> 
-								</p>
-                                <p class="change_link">
-									Not registered yet ?
-									<a href="#toregister" class="to_register">Register</a>
 								</p>
                             </form>
                         </div>
