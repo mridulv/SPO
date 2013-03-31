@@ -130,15 +130,36 @@ session_start();
 </div> -->
 <div id="header">
 	<div class="content"><font color="#fff" size="5px">Logout</font></div>
-	<div class="content" onclick="window.location='profile_student.php';"><font color="#fff" size="5px">Edit Profile</font></div>
 </div>
 <div id="main-content">
 	<h2><u>Companies in which job applied for</u></h2>
 	<div id="accordion">
 		<?php
-			for ($i=0;$i<10;$i++){
-				echo '<div class="head-app">Microsoft&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
-				echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';
+			mysql_connect("localhost","root","mridul")
+			or die("<h3>could not connect to MySQL</h3>\n");
+			mysql_select_db("test")
+			or die("<h3>could not select database 'test'</h3>\n");
+
+			$result4= mysql_query("select * from applied_for NATURAL JOIN Company where roll=".$_COOKIE['user']);
+			
+			while($row4=mysql_fetch_array($result4)){
+				$result5= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']." and designation=".$row4['designation']." and company_id=".$row['company_id']);
+				if (mysql_num_rows($result5)!=0){					
+					$row5=mysql_fetch_array($result5);
+					echo '<div class="head-app">'.$row5['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
+					echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';
+				}
+				else{
+					$result5= mysql_query("select * from company_hires NATURAL JOIN Company where designation=".$row4['designation']." and company_id=".$row['company_id']);					
+					if (mysql_num_rows($result5)==0){					
+						echo '<div class="head-app">'.$row4['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : No</div>';
+						echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';
+					}
+					else{
+						echo '<div class="head-app">'.$row4['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : No</div>';
+						echo '<div class="detail-app">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>';						
+					}
+				}
 			}
 		?>
 	</div>
@@ -146,27 +167,54 @@ session_start();
 <div id="company-content">
 	<h2><u>New Companies</u></h2>
 	<div id="job-new">
+		<form action="application.php" method="get">
 		<?php
-			for ($i=0;$i<10;$i++){
-				echo '<div class="comp-short" alt="'.$i.'">Microsoft&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
-				echo '<div id="new-pos" class="comp-detail" alt="'.$i.'">
-						<ul>
-							<li><a href="#tabs-1">Nunc tincidunt</a></li>
-							<li><a href="#tabs-2">Proin dolor</a></li>
-							<li><a href="#tabs-3">Aenean lacinia</a></li>
-						</ul>
-						<div id="tabs-1">
-							<p>Tab'.$i.'</p>							
-						</div>
-						<div id="tabs-2">
-							<p>Tab'.$i.'</p>	
-						</div>
-						<div id="tabs-3">
-							<p>Tab'.$i.'</p>	
-						</div>
-					</div>';
+			mysql_connect("localhost","root","mridul")
+			or die("<h3>could not connect to MySQL</h3>\n");
+			mysql_select_db("test")
+			or die("<h3>could not select database 'test'</h3>\n");
+
+			$result3= mysql_query("select * from student_degree where roll=".$_COOKIE['user']);
+			$row3=mysql_fetch_array($result3);
+
+			$result= mysql_query("select * from job_offering");
+			while($row=mysql_fetch_array($result)){
+				$check=0;
+				$result2= mysql_query("select * from applied_for");
+				while($row2=mysql_fetch_array($result2)){
+					if (($row2['roll'] == $_COOKIE['user'] && $row2['company_id'] == $row['company_id'] && $row2['designation'] == $row['designation'])){
+						$check=1;
+					}
+				}
+				if ($check==0){
+				$a1=$row['departments'];
+				$a2=$row['degree'];
+				$b1=explode(",",$a1);
+				$b2=explode(",",$a2);
+				if (in_array($row3['department'], $b1) && in_array($row3['degree'], $b2) && ($row3['cpi'] >= $row['Min_CPI']  && $row3['cpi'] <= $row['Max_CPI'])){
+					echo '<input type="checkbox" name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short" alt="'.$i.'">'.$row['designation'].'</div>';
+					echo '<div id="new-pos" class="comp-detail" alt="'.$i.'">
+							<ul>
+								<li><a href="#tabs-1">Nunc tincidunt</a></li>
+								<li><a href="#tabs-2">Proin dolor</a></li>
+								<li><a href="#tabs-3">Aenean lacinia</a></li>
+							</ul>
+							<div id="tabs-1">
+								<p>Tab'.$i.'</p>							
+							</div>
+							<div id="tabs-2">
+								<p>Tab'.$i.'</p>	
+							</div>
+							<div id="tabs-3">
+								<p>Tab'.$i.'</p>	
+							</div>
+						</div>';
+					}
+				}
 			}
 		?>
+		<input type="submit" value="submit" name="submit"/>
+		</form>
 	</div>
 </div>
 </body>

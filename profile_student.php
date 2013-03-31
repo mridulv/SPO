@@ -1,6 +1,14 @@
 <?php
+mysql_connect("localhost","root","mridul")
+or die("<h3>could not connect to MySQL</h3>\n");
+mysql_select_db("test")
+or die("<h3>could not select database 'test'</h3>\n");
 if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
-session_start();
+	$result= mysql_query("select * from student where roll=".$_COOKIE['user']);
+	while($row=mysql_fetch_array($result)){
+		header("location: regis.php");		
+	}
+	session_start();
 ?>
 <html>
 <head>
@@ -106,8 +114,6 @@ session_start();
 		<table>
 		<tr><td><label>Name</label></td>
 		<td><input type="text" name="name"/></td></tr>
-		<tr><td><label>Roll No.</label></td>
-		<td><input type="text" name="roll"/></td></tr>
 		<tr><td><label>Department</label></td>
 		<td><select name="dept">
 			<option value="AE">AE</option>
@@ -135,7 +141,7 @@ session_start();
 		<td><input type="text" name="cpi"/></td></tr>
 		<tr><td><label>Upload Resume</label></td>
 		<td><input type="file" name="resume"/></td></tr>
-		<tr><td><input type="submit" value="submit"/></td></tr>
+		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>
 </div>

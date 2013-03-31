@@ -5,14 +5,15 @@
 		mysql_select_db("test")
 		or die("<h3>could not select database 'test'</h3>\n");
 		$a=$_REQUEST['name'];
-		$a=$_REQUEST['roll'];
-		$a=$_REQUEST['department'];
-		$a=$_REQUEST['cpi'];
-		$a=$_REQUEST['resume'];
+		$b=$_COOKIE['user'];
+		$c=$_REQUEST['dept'];
+		$d=$_REQUEST['cpi'];
+		$e=$_REQUEST['resume'];
+		$f=$_REQUEST['degree'];
 		
-		$result=mysql_query('insert into student(name');
-		if ($m==0)
-			header("location: index.php?password=incorrect");
+		$result=mysql_query("insert into student values('$b','$a','$e','0')");
+		$result2=mysql_query("insert into student_degree values('$b','$f','$d','$c')");
+		header("location: regis.php");	
 		}
 		else{
 			header("location: index.php");	
