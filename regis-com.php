@@ -188,6 +188,7 @@ session_start();
 					while($rown=mysql_fetch_array($resultn)){
 						$r=$rown['name'];
 						echo '<input type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div class="comp-short">'.$r.'</div>';
+						//echo '<iframe src="'.$rown['resume'].'" width="800px" height="600px" >';
 					}
 
 						echo '<input type="submit" value="submit" name="submit"/></form>';

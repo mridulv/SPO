@@ -106,7 +106,7 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 </script>
 <body>
 <div id="header">
-	<div class="content"><font color="#fff" size="5px">Logout</font></div>
+	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='regis.php'"><font color="#fff" size="5px">Back</font></div>
 </div>
 <div class="other">

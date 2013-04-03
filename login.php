@@ -42,7 +42,11 @@
 						exit();
 			}
 			}
-			echo "mridul ".$m;
+			if ($m==0)
+				header("location: index.php?password=incorrect");
+			else{
+				header("location: index.php");	
+			}
 		}
 	}
 	else

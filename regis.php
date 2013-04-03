@@ -105,6 +105,10 @@ session_start();
 				$(this).animate({'opacity': '0.8'});
 			});
 		});
+		$("#logout").click(function(){
+				console.log('popop');
+				window.location='logout.php';
+		});
 		$(".close").click(function(){
 			console.log(k);
 			$(".comp-detail[alt = "+k+"]").hide(10,function(){
@@ -129,7 +133,18 @@ session_start();
 </p>
 </div> -->
 <div id="header">
-	<div class="content"><font color="#fff" size="5px">Logout</font></div>
+	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>
+	<?php
+			mysql_connect("localhost","root","mridul")
+			or die("<h3>could not connect to MySQL</h3>\n");
+			mysql_select_db("test")
+			or die("<h3>could not select database 'test'</h3>\n");
+
+			$result4= mysql_query("select * from student where roll=".$_COOKIE['user']);
+			if (mysql_num_rows($result4)==0){
+				echo '<div class="content"><font color="#fff" size="5px">Create a  New Profile</font></div>';		
+			}
+	?>
 </div>
 <div id="main-content">
 	<h2><u>Companies in which job applied for</u></h2>
@@ -139,11 +154,16 @@ session_start();
 			or die("<h3>could not connect to MySQL</h3>\n");
 			mysql_select_db("test")
 			or die("<h3>could not select database 'test'</h3>\n");
-
+			$ck=0;
 			$result4= mysql_query("select * from applied_for NATURAL JOIN Company where roll=".$_COOKIE['user']);
-			
-			while($row4=mysql_fetch_array($result4)){ 
+			$ck2=mysql_num_rows($result4);
 
+			$result5p= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']);
+			$row5p=mysql_fetch_array($result5);
+			$ck3=mysql_num_rows($result5p);
+
+			while($row4=mysql_fetch_array($result4)){ 
+				$ck=1;
 				$result5= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']." and designation='".$row4['designation']."' and company_id=".$row4['company_id']);
 				$result6= mysql_query("select * from job_offering where company_id=".$row4['company_id']." and designation='".$row4['designation']."'");
 				$row=mysql_fetch_array($result6);
@@ -250,6 +270,48 @@ session_start();
 					}
 				}
 			}
+			if ($ck3!=0 && $ck==0){
+				$result6= mysql_query("select * from job_offering where company_id=".$row5p['company_id']." and designation='".$row5p['designation']."'");
+				$row=mysql_fetch_array($result6);
+				$a=$row['designation'];
+				$b=$row['Number_of_posts'];
+				$c=$row['description'];
+				$t=$row['departments'];
+				$y=$row['degree'];
+				$d=$row['Min_CPI'];
+				$e=$row['Max_CPI'];
+				$f=$row['Basic'];
+				$g=$row['HRA'];
+				$h=$row['Sign_In_Bonus'];
+				$i=$row['Shares_Worth'];					
+				echo '<div class="head-app">'.$row5p['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
+				echo '<div class="detail-app">
+				<table>
+				<tr><td><label><b>Designation</b></label></td>
+				<td>'.$a.'</td></tr>
+				<tr><td><label><b>Number of Posts</b></label></td>
+				<td>'.$b.'</td></tr>
+				<tr><td><label><b>Description Of the Profile</b></label></td>
+				<td>'.$c.'</td></tr>	
+				<tr><td><label><b>Departments of Students should be among </b></label></td>
+				<td>'.$t.'</td></tr>
+				<tr><td><label><b>Degree of Student should be among </b></label></td>
+				<td>'.$y.'</td></tr>
+				<tr><td><label><b>Min. CPI </b></label></td>
+				<td>'.$d.'</td></tr>
+				<tr><td><label><b>Max. CPI </b></label></td>
+				<td>'.$e.'</td></tr>
+				<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+				<td>'.$f.'</td></tr>
+				<tr><td><label><b>HRA (in lakhs)</b></label></td>
+				<td>'.$g.'</td></tr>
+				<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+				<td>'.$h.'</td></tr>
+				<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+				<td>'.$i.'</td></tr>
+				</table>
+				</div>';
+			}
 		?>
 	</div>
 </div>
@@ -278,6 +340,12 @@ session_start();
 						$check=1;
 					}
 				}
+				$resultk= mysql_query("select * from company_hires");
+				while($rowk=mysql_fetch_array($resultk)){
+					if ($rowk['company_id'] == $row['company_id'] && !strcmp($rowk['designation'],$row['designation'])) {
+						$check=1;
+					}
+				}
 				if ($check==0){
 				$a1=$row['departments'];
 				$a2=$row['degree'];
@@ -285,21 +353,42 @@ session_start();
 				$b2=explode(",",$a2);
 				if (in_array($row3['department'], $b1) && in_array($row3['degree'], $b2) && ($row3['cpi'] >= $row['Min_CPI']  && $row3['cpi'] <= $row['Max_CPI'])){
 					echo '<input type="checkbox" name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short" alt="'.$i.'">'.$row['designation'].'</div>';
+					$as=$row['designation'];
+					$bs=$row['Number_of_posts'];
+					$cs=$row['description'];
+					$ts=$row['departments'];
+					$ys=$row['degree'];
+					$ds=$row['Min_CPI'];
+					$es=$row['Max_CPI'];
+					$fs=$row['Basic'];
+					$gs=$row['HRA'];
+					$hs=$row['Sign_In_Bonus'];
+					$is=$row['Shares_Worth'];	
 					echo '<div id="new-pos" class="comp-detail" alt="'.$i.'">
-							<ul>
-								<li><a href="#tabs-1">Nunc tincidunt</a></li>
-								<li><a href="#tabs-2">Proin dolor</a></li>
-								<li><a href="#tabs-3">Aenean lacinia</a></li>
-							</ul>
-							<div id="tabs-1">
-								<p>Tab'.$i.'</p>							
-							</div>
-							<div id="tabs-2">
-								<p>Tab'.$i.'</p>	
-							</div>
-							<div id="tabs-3">
-								<p>Tab'.$i.'</p>	
-							</div>
+							<table>
+							<tr><td><label><b>Designation</b></label></td>
+							<td>'.$as.'</td></tr>
+							<tr><td><label><b>Number of Posts</b></label></td>
+							<td>'.$bs.'</td></tr>
+							<tr><td><label><b>Description Of the Profile</b></label></td>
+							<td>'.$cs.'</td></tr>	
+							<tr><td><label><b>Departments of Students should be among </b></label></td>
+							<td>'.$ts.'</td></tr>
+							<tr><td><label><b>Degree of Student should be among </b></label></td>
+							<td>'.$ys.'</td></tr>
+							<tr><td><label><b>Min. CPI </b></label></td>
+							<td>'.$ds.'</td></tr>
+							<tr><td><label><b>Max. CPI </b></label></td>
+							<td>'.$es.'</td></tr>
+							<tr><td><label><b>Basic Salary (in lakhs)</b></label></td>
+							<td>'.$fs.'</td></tr>
+							<tr><td><label><b>HRA (in lakhs)</b></label></td>
+							<td>'.$gs.'</td></tr>
+							<tr><td><label><b>Sign In Bonus (in lakhs)</b></label></td>
+							<td>'.$hs.'</td></tr>
+							<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
+							<td>'.$is.'</td></tr>
+							</table>
 						</div>';
 						}
 					}
