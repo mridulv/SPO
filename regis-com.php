@@ -56,7 +56,7 @@ session_start();
 	cursor:pointer;
 }
 #new-pos{
-	position:fixed;
+	position:absolute;
 	padding-left: 20px;
 	padding-top:20px;
 	background-color: #ffffff;
@@ -64,15 +64,27 @@ session_start();
 	top:32px;
 	width:1340px;
 	height:600px;
+}
+#new-pos2{
+	position:fixed;
+	border:2px solid black;
+	padding-left: 20px;
+	padding-top:20px;
+	background-color: #ffffff;
+	left:300px;
+	top:0px;
+	width:800px;
+	height:620px;
 	z-index: 10;
+	display:none;
 }
 #full{
-	z-index: 5;
 	position:absolute;
 	background-color: #000000;
 	margin-left:-20px;
 	margin-top:-20px;
 	opacity : 0;
+	z-index: 2;
 	display:none;
 	width:1375px;
 	height:635px;
@@ -89,6 +101,13 @@ session_start();
     border-left:1px solid #aaaaaa;
     display: inline;
 }
+#frame{
+	position:relative;
+	margin-left:-30px;
+	margin-top:-20px;
+	width:820px;
+	height:630px;
+}
 </style>
 <script  type="text/javascript" src="js/jquery.js"></script>
 <script src="js/jquery-1.9.1.js"></script>
@@ -98,19 +117,39 @@ session_start();
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#new-pos").tabs();
+		$(".comp-short").click(function(){
+			console.log("p");
+			k = $(this).attr('alt');
+			console.log(k);
+			$("#full").show("fast",function(){
+				console.log(k+"ssss");
+				$(this).animate({'opacity': '0.8'});
+				$(".comp-detail[alt = "+k+"]").fadeIn(20);
+			});
+		});
+		$(".close").click(function(){
+			console.log(k);
+			$(".comp-detail[alt = "+k+"]").hide(10,function(){
+				$("#full").fadeOut(20,function(){
+					$("#full").animate({'opacity': '0.0'});
+					console.log("memememe");
+				});
+			});
+		});
 	});
 </script>
+<body>
 <div id="header">
 	<div class="content" onclick="window.location='logout.php';"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='profile_company.php'";><font color="#fff" size="5px">Create New Profile</font></div>
 </div>
-<body>
 <div id="full">
 	<img class="close" src="img/close.png"/>
 </div>
 <div id="new-pos">
 	<?php
 		echo "<ul>";
+		$op=0;
 		mysql_connect("localhost","root","mridul")
 		or die("<h3>could not connect to MySQL</h3>\n");
 		mysql_select_db("test")
@@ -140,6 +179,7 @@ session_start();
 			$g=$row['HRA'];
 			$h=$row['Sign_In_Bonus'];
 			$i=$row['Shares_Worth'];
+			$j=$row['Company_Rating'];
 			echo '<div id="tabs-'.$p.'">
 					<table cellspacing="5" border="0" cellpadding="0">
 					<tr valign="top" align="left">
@@ -167,6 +207,8 @@ session_start();
 					<td>'.$h.'</td></tr>
 					<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 					<td>'.$i.'</td></tr>
+					<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+					<td>'.$j.'</td></tr>
 					</table>
 					</p></td>
 					<td width="1" height="500px" bgcolor="#aaaaaa"><BR></td>
@@ -184,11 +226,15 @@ session_start();
 					echo '<p>Students Applied For this Profile</p>
 					<form method="post" action="select.php">';
 					$resultn= mysql_query("select * from applied_for NATURAL JOIN student where company_id=".$k." and designation='".$row['designation']."'");
-					
+					$op=0;
 					while($rown=mysql_fetch_array($resultn)){
+						$op++;
 						$r=$rown['name'];
-						echo '<input type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div class="comp-short">'.$r.'</div>';
-						//echo '<iframe src="'.$rown['resume'].'" width="800px" height="600px" >';
+						echo '<input type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div class="comp-short" alt="'.$op.'">'.$r.'</div>';
+						echo '<div id="new-pos2" class="comp-detail" alt="'.$op.'">';
+						//echo 'See <a href="'.$rown['resume'].'" target="_blank">Here</a>';
+						echo '<iframe id="frame" src="'.$rown['resume'].'"></iframe>';
+						echo '</div>';
 					}
 
 						echo '<input type="submit" value="submit" name="submit"/></form>';

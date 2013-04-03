@@ -3,7 +3,7 @@ mysql_connect("localhost","root","mridul")
 or die("<h3>could not connect to MySQL</h3>\n");
 mysql_select_db("test")
 or die("<h3>could not select database 'test'</h3>\n");
-if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
+if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'alumni')){
 	$result= mysql_query("select * from student where roll=".$_COOKIE['user']);
 	while($row=mysql_fetch_array($result)){
 		header("location: regis.php");		
@@ -107,13 +107,15 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 <body>
 <div id="header">
 	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
-	<div class="content" onclick="window.location='regis.php'"><font color="#fff" size="5px">Back</font></div>
+	<div class="content" onclick="window.location='alumni_rate.php'"><font color="#fff" size="5px">Back</font></div>
 </div>
 <div class="other">
-	<form enctype="multipart/form-data" action="fill_profile_student.php" method="post">
+	<form action="fill_profile_alumni.php" method="post">
 		<table>
 		<tr><td><label>Name</label></td>
 		<td><input type="text" name="name"/></td></tr>
+		<tr><td><label>Batch</label></td>
+		<td><input type="text" name="batch" placeholder="Batch-91"/></td></tr>
 		<tr><td><label>Department</label></td>
 		<td><select name="dept">
 			<option value="AE">AE</option>
@@ -131,16 +133,8 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 			<option value="IME">IME</option>
 			<option value="hSS">HSS</option>
 		</select></td></tr>
-		<tr><td><label>Degree</label></td>
-		<td><select name="degree">
-			<option value="Btech">B tech</option>
-			<option value="Mtech(Dual)">B tech-M tech ( Dual )</option>
-			<option value="Mtech">M tech</option>
-		</select></td></tr>
-		<tr><td><label>CPI</label></td>
-		<td><input type="text" name="cpi"/></td></tr>
-		<tr><td><label>Upload Resume</label></td>
-		<td><input type="file" name="resume"/></td></tr>
+		<tr><td><label>Office Address</label></td>
+		<td><input type="text" name="address"/></td></tr>
 		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>

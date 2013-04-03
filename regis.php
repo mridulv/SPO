@@ -109,6 +109,10 @@ session_start();
 				console.log('popop');
 				window.location='logout.php';
 		});
+		$("#profile_my").click(function(){
+				console.log('popop');
+				window.location='profile_student.php';
+		});
 		$(".close").click(function(){
 			console.log(k);
 			$(".comp-detail[alt = "+k+"]").hide(10,function(){
@@ -142,7 +146,7 @@ session_start();
 
 			$result4= mysql_query("select * from student where roll=".$_COOKIE['user']);
 			if (mysql_num_rows($result4)==0){
-				echo '<div class="content"><font color="#fff" size="5px">Create a  New Profile</font></div>';		
+				echo '<div class="content" id="profile_my"><font color="#fff" size="5px">Create a  New Profile</font></div>';		
 			}
 	?>
 </div>
@@ -159,7 +163,7 @@ session_start();
 			$ck2=mysql_num_rows($result4);
 
 			$result5p= mysql_query("select * from company_hires NATURAL JOIN Company where roll=".$_COOKIE['user']);
-			$row5p=mysql_fetch_array($result5);
+			$row5p=mysql_fetch_array($result5p);
 			$ck3=mysql_num_rows($result5p);
 
 			while($row4=mysql_fetch_array($result4)){ 
@@ -178,6 +182,7 @@ session_start();
 				$g=$row['HRA'];
 				$h=$row['Sign_In_Bonus'];
 				$i=$row['Shares_Worth'];
+				$j=$row['Company_Rating'];
 				if (mysql_num_rows($result5)!=0){					
 					$row5=mysql_fetch_array($result5);
 					echo '<div class="head-app">'.$row5['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
@@ -205,6 +210,8 @@ session_start();
 					<td>'.$h.'</td></tr>
 					<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 					<td>'.$i.'</td></tr>
+					<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+					<td>'.$j.'</td></tr>
 					</table>
 					</div>';
 				}
@@ -236,6 +243,8 @@ session_start();
 						<td>'.$h.'</td></tr>
 						<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 						<td>'.$i.'</td></tr>
+						<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+						<td>'.$j.'</td></tr>
 						</table>
 						</div>';
 					}
@@ -265,6 +274,8 @@ session_start();
 						<td>'.$h.'</td></tr>
 						<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 						<td>'.$i.'</td></tr>
+						<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+						<td>'.$j.'</td></tr>
 						</table>
 						</div>';						
 					}
@@ -283,7 +294,8 @@ session_start();
 				$f=$row['Basic'];
 				$g=$row['HRA'];
 				$h=$row['Sign_In_Bonus'];
-				$i=$row['Shares_Worth'];					
+				$i=$row['Shares_Worth'];	
+				$j=$row['Company_Rating'];				
 				echo '<div class="head-app">'.$row5p['Company_name'].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results : Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status : Yes</div>';
 				echo '<div class="detail-app">
 				<table>
@@ -309,6 +321,8 @@ session_start();
 				<td>'.$h.'</td></tr>
 				<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 				<td>'.$i.'</td></tr>
+				<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+				<td>'.$j.'</td></tr>
 				</table>
 				</div>';
 			}
@@ -364,6 +378,7 @@ session_start();
 					$gs=$row['HRA'];
 					$hs=$row['Sign_In_Bonus'];
 					$is=$row['Shares_Worth'];	
+					$j=$row['Company_Rating'];
 					echo '<div id="new-pos" class="comp-detail" alt="'.$i.'">
 							<table>
 							<tr><td><label><b>Designation</b></label></td>
@@ -388,6 +403,8 @@ session_start();
 							<td>'.$hs.'</td></tr>
 							<tr><td><label><b>Shares Worth (in lakhs)</b></label></td>
 							<td>'.$is.'</td></tr>
+							<tr><td><label><b>Rating given by (IITK alumnus)</b></label></td>
+							<td>'.$j.'</td></tr>
 							</table>
 						</div>';
 						}

@@ -1,5 +1,6 @@
 <?php
 		if (isset($_REQUEST['login'])){
+			header("location: po.php");
 		mysql_connect("localhost","root","mridul")
 		or die("<h3>could not connect to MySQL</h3>\n");
 		mysql_select_db("test")
@@ -39,6 +40,27 @@
 						setcookie("role","company",time()+3600);
 						setcookie("user",$row2['company_id'],time()+3600);
 						header("location: regis-com.php");
+						exit();
+			}
+			}
+			if ($m==0)
+				header("location: index.php?password=incorrect");
+			else{
+				header("location: index.php");	
+			}
+		}
+		else if(!strcmp($c,"alumni")){
+			echo $a.$b." ";
+			$result2=mysql_query('select * from login_alumni');
+			$m=0;
+			while($row2=mysql_fetch_array($result2)){
+			echo $row2['username']." ";
+			if ($row2['username']==$a && $row2['password']==$b){
+						$m=1;
+						session_start();
+						setcookie("role","alumni",time()+3600);
+						setcookie("user",$row2['alumni_id'],time()+3600);
+						header("location: alumni_rate.php");
 						exit();
 			}
 			}
