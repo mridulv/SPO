@@ -70,6 +70,23 @@
 				header("location: index.php");	
 			}
 		}
+		else if(!strcmp($c,"admin")){
+			echo $a.$b." ";
+			$m=0;
+			if ($a=='admin' && $b=='admin'){
+						$m=1;
+						session_start();
+						setcookie("role","admin",time()+3600);
+						setcookie("user","admin",time()+3600);
+						header("location: admin.php");
+						exit();
+			}
+			if ($m==0)
+				header("location: index.php?password=incorrect");
+			else{
+				header("location: index.php");	
+			}
+		}
 	}
 	else
 		header("location: index.php");	

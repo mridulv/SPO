@@ -45,6 +45,7 @@ setcookie("user","",time()-3600);
                                         <option value="student">Student</option>
                                         <option value="company">Company</option>
                                         <option value="alumni">Alumni</option>
+                                        <option value="admin">Admin</option>
                                     </select>
                                 </p>
 								<?php

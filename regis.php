@@ -344,10 +344,11 @@ session_start();
 			echo '<form action="application.php" method="post">';
 			$result3= mysql_query("select * from student_degree where roll=".$_COOKIE['user']);
 			$row3=mysql_fetch_array($result3);
-
+			$i=0;
 			$result= mysql_query("select * from job_offering");
 			while($row=mysql_fetch_array($result)){
 				$check=0;
+				$i++;
 				$result2= mysql_query("select * from applied_for");
 				while($row2=mysql_fetch_array($result2)){
 					if (($row2['roll'] == $_COOKIE['user'] && $row2['company_id'] == $row['company_id'] && $row2['designation'] == $row['designation'])){
@@ -366,7 +367,9 @@ session_start();
 				$b1=explode(",",$a1);
 				$b2=explode(",",$a2);
 				if (in_array($row3['department'], $b1) && in_array($row3['degree'], $b2) && ($row3['cpi'] >= $row['Min_CPI']  && $row3['cpi'] <= $row['Max_CPI'])){
-					echo '<input type="checkbox" name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short" alt="'.$i.'">'.$row['designation'].'</div>';
+					$com_name=$row['company_id'];
+					$name=mysql_fetch_array(mysql_query("select * from Company where company_id='".$com_name."'"));
+					echo '<input type="checkbox" name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short" alt="'.$i.'">'.$row['designation']." in ".$name['Company_name'].'</div>';
 					$as=$row['designation'];
 					$bs=$row['Number_of_posts'];
 					$cs=$row['description'];
@@ -381,6 +384,8 @@ session_start();
 					$j=$row['Company_Rating'];
 					echo '<div id="new-pos" class="comp-detail" alt="'.$i.'">
 							<table>
+							<tr><td><label><b>Company Name</b></label></td>
+							<td>'.$name['Company_name'].'</td></tr>
 							<tr><td><label><b>Designation</b></label></td>
 							<td>'.$as.'</td></tr>
 							<tr><td><label><b>Number of Posts</b></label></td>

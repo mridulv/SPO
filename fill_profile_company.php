@@ -4,6 +4,7 @@
 			or die("<h3>could not connect to MySQL</h3>\n");
 			mysql_select_db("test")
 			or die("<h3>could not select database 'test'</h3>\n");
+
 			$a=$_REQUEST['desig'];
 			$b=$_REQUEST['num_posts'];
 			$c=$_REQUEST['profile'];
@@ -17,8 +18,11 @@
 			$i=$_REQUEST['shares'];
 
 			$k = $_COOKIE['user'];
-			
-			$result=mysql_query("insert into job_offering values('$a','$k','$b','$c','$t','$y','$d','$e','5','$f','$g','$h','$i')");
+				
+			echo "insert into job_offering values('$a','$k','$b','$c','$t','$y','$d','$e','5','0',$f','$g','$h','$i')";	
+
+			$result=mysql_query("insert into job_offering values('$a','$k','$b','$c','$t','$y','$d','$e','5','0','$f','$g','$h','$i')");
+			echo $result;
 			//$result=mysql_query('insert into job_offering(designation) values("'.$a.'")');
 			header("location: regis-com.php");
 		}
