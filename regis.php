@@ -5,12 +5,28 @@ session_start();
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style5.css" />
+<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <title>Registration Portal</title>
 <style type="text/css">
+h3{
+	font-size:20px;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+	background-color:#ccccff;
+	border:2px solid black;
+	border-radius: 1px;
+	border-collapse:1px;
+}
 #header{
 	position:fixed;
-	margin-top:-10px;
-	margin-left:-10px;
+	margin-top:0px;
+	margin-left:0px;
+	padding:10px 5px 0px 5px;
 	height:35px;
 	width:1900px;
 	background-color: #000000;
@@ -24,36 +40,41 @@ session_start();
 }
 #main-content{
 	position:absolute;
-	margin-top:30px;
+	margin-top:50px;
+	margin-left:10px;
 	padding:20px 20px 20px 20px;
 	border:2px solid black;
 	width:800px;
 	height:500px;
 	overflow: auto;
+	box-shadow: 10px 10px 5px #888888;
 }
 #company-content{
 	position:absolute;
-	margin-top:30px;
+	margin-top:50px;
 	margin-left:900px;
 	padding:20px 20px 20px 20px;
 	border:2px solid black;
 	width:400px;
+	box-shadow: 10px 10px 5px #888888;
 	height:500px;
 	overflow: auto;
-	display:inline;
+	display:inline;</br>
 }
 .detail-app{
 	height:200px;
 }
 .comp-short{
+	position:relative;
 	border:2px solid #8888ff;
 	background-color: #aaaaff;
 	padding:10px 10px 10px 10px;
 	border-radius: 4px;
-	position:relative;
-	margin-top:10px;
+	margin-top:30px;
+	margin-right:30px;
 	height:50px;
 	cursor:pointer;
+	display:inline;
 }
 #new-pos{
 	position:fixed;
@@ -79,10 +100,19 @@ session_start();
 	width:1375px;
 	height:635px;
 }
-.close{
+.close-2{
 	position:absolute;
 	right:100px;
 	top:50px;
+}
+#logout{
+	position:relative;
+	margin-right:10px;
+	width:100px;
+}
+#accordion{
+	position:relative;
+	margin-top:20px;
 }
 </style>	
 <script  type="text/javascript" src="js/jquery.js"></script>
@@ -113,7 +143,7 @@ session_start();
 				console.log('popop');
 				window.location='profile_student.php';
 		});
-		$(".close").click(function(){
+		$(".close-2").click(function(){
 			console.log(k);
 			$(".comp-detail[alt = "+k+"]").hide(10,function(){
 				$("#full").fadeOut(20,function(){
@@ -126,7 +156,7 @@ session_start();
 </script>
 <body>
 <div id="full">
-	<img class="close" src="img/close.png"/>
+	<img class="close-2" src="img/close.png"/>
 </div>
 <!-- <div id="k2">
 <p class="signin button" id="pro"> 
@@ -136,8 +166,7 @@ session_start();
 	<input type="button" value="Logout"/> 
 </p>
 </div> -->
-<div id="header">
-	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>
+<div id="header" class="container">
 	<?php
 			mysql_connect("localhost","root","mridul")
 			or die("<h3>could not connect to MySQL</h3>\n");
@@ -145,13 +174,15 @@ session_start();
 			or die("<h3>could not select database 'test'</h3>\n");
 
 			$result4= mysql_query("select * from student where roll=".$_COOKIE['user']);
-			if (mysql_num_rows($result4)==0){
-				echo '<div class="content" id="profile_my"><font color="#fff" size="5px">Create a  New Profile</font></div>';		
+			if (mysql_num_rows($result4)!=0){
+				echo '<div class="content" id="profile_my "><font color="#fff" size="5px">Create Your Profile</font></div>';		
 			}
 	?>
+	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>
 </div>
-<div id="main-content">
-	<h2><u>Companies in which job applied for</u></h2>
+<div id="main-content" class="container span8">
+	<h3 class="btn btn-success">Companies in which job applied for</h3>
+</br>
 	<div id="accordion">
 		<?php
 			mysql_connect("localhost","root","mridul")
@@ -329,8 +360,9 @@ session_start();
 		?>
 	</div>
 </div>
-<div id="company-content">
-	<h2><u>New Companies</u></h2>
+<div id="company-content" class="container">
+	<h3 class="btn btn-success">New Companies</h3>
+	</br>
 	<div id="job-new">
 		<?php
 			mysql_connect("localhost","root","mridul")
@@ -341,7 +373,7 @@ session_start();
 			$resultm= mysql_query("select * from student where roll=".$_COOKIE['user']);
 			$rowm=mysql_fetch_array($resultm);
 			if ($rowm['status']==0){
-			echo '<form action="application.php" method="post">';
+			echo '<form class="form-inline" action="application.php" method="post">';
 			$result3= mysql_query("select * from student_degree where roll=".$_COOKIE['user']);
 			$row3=mysql_fetch_array($result3);
 			$i=0;
@@ -369,7 +401,7 @@ session_start();
 				if (in_array($row3['department'], $b1) && in_array($row3['degree'], $b2) && ($row3['cpi'] >= $row['Min_CPI']  && $row3['cpi'] <= $row['Max_CPI'])){
 					$com_name=$row['company_id'];
 					$name=mysql_fetch_array(mysql_query("select * from Company where company_id='".$com_name."'"));
-					echo '<input type="checkbox" name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short" alt="'.$i.'">'.$row['designation']." in ".$name['Company_name'].'</div>';
+					echo '</br></br></br><input type="checkbox" style="float:left;margin-left:30px;"name="options[]" value="'.$row['company_id'].'.'.$row['designation'].'"><div class="comp-short btn btn-primary" alt="'.$i.'">'.$row['designation']." in ".$name['Company_name'].'</div>';
 					$as=$row['designation'];
 					$bs=$row['Number_of_posts'];
 					$cs=$row['description'];
@@ -415,7 +447,7 @@ session_start();
 						}
 					}
 				}
-				echo '<input type="submit" value="submit" name="submit"/>
+				echo '</br></br></br><input type="submit" value="submit" name="submit" class="btn btn-danger"/>
 					  </form>';
 			}
 			else{
