@@ -6,7 +6,7 @@ or die("<h3>could not select database 'test'</h3>\n");
 if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 	$result= mysql_query("select * from student where roll=".$_COOKIE['user']);
 	while($row=mysql_fetch_array($result)){
-		//header("location: regis.php");		
+		header("location: regis.php");		
 	}
 	session_start();
 ?>
@@ -24,6 +24,7 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 #header{
 	position:fixed;
 	height:35px;
+	padding: 10px 5px 0px 5px;
 	width:1900px;
 	background-color: #000000;
 }
@@ -101,6 +102,11 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 	top:100px;
 	left:10px;
 }
+#logout{
+	position:fixed;
+	right:10px;
+	width:100px;
+}
 </style>
 <script  type="text/javascript" src="js/jquery.js"></script>
 <script src="js/jquery-1.9.1.js"></script>
@@ -111,8 +117,8 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 </script>
 <body>
 <div id="header">
-	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='regis.php'"><font color="#fff" size="5px">Back</font></div>
+	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 </div>
 <div class="other">
 	<form class="form-horizontal" enctype="multipart/form-data" action="fill_profile_student.php" method="post">
@@ -146,7 +152,7 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 		<td><input type="text" name="cpi"/></td></tr>
 		<tr><td><label>Upload Resume</label></td>
 		<td><input type="file" name="resume"/></td></tr>
-		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
+		<tr><td><input class="btn btn-danger" type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>
 </div>

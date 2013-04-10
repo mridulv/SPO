@@ -25,6 +25,7 @@ h3{
 #header{
 	position:fixed;
 	margin-top:0px;
+	z-index:4;
 	margin-left:0px;
 	padding:10px 5px 0px 5px;
 	height:35px;
@@ -105,11 +106,6 @@ h3{
 	right:100px;
 	top:50px;
 }
-#logout{
-	position:relative;
-	margin-right:10px;
-	width:100px;
-}
 #accordion{
 	position:relative;
 	margin-top:20px;
@@ -174,8 +170,8 @@ h3{
 			or die("<h3>could not select database 'test'</h3>\n");
 
 			$result4= mysql_query("select * from student where roll=".$_COOKIE['user']);
-			if (mysql_num_rows($result4)!=0){
-				echo '<div class="content" id="profile_my "><font color="#fff" size="5px">Create Your Profile</font></div>';		
+			if (mysql_num_rows($result4)==0){
+				echo '<div class="content" id="profile_my"><font color="#fff" size="5px">Create Your Profile</font></div>';		
 			}
 	?>
 	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>

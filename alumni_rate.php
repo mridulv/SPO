@@ -5,12 +5,17 @@ session_start();
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style5.css" />
+<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <title>Registration Portal</title>
 <style type="text/css">
 #header{
 	position:fixed;
-	margin-top:-10px;
-	margin-left:-10px;
+	padding:10px 5px 0px 5px;
 	height:35px;
 	width:1900px;
 	background-color: #000000;
@@ -24,7 +29,8 @@ session_start();
 }
 #main-content{
 	position:absolute;
-	margin-top:30px;
+	margin-top:60px;
+	margin-left:20px;
 	padding:20px 20px 20px 20px;
 	border:2px solid black;
 	width:1200px;
@@ -44,6 +50,7 @@ session_start();
 }
 .detail-app{
 	height:200px;
+	overflow-y:scroll;
 }
 .comp-short{
 	border:2px solid #8888ff;
@@ -83,6 +90,20 @@ session_start();
 	position:absolute;
 	right:100px;
 	top:50px;
+}
+h3{
+	font-size:20px;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+	background-color:#ccccff;
+	border:2px solid black;
+	border-radius: 1px;
+	border-collapse:1px;
+}
+#accordion{
+	position:absolute;
+	width:1200px;
+	margin-top:20px;
 }
 </style>	
 <script  type="text/javascript" src="js/jquery.js"></script>
@@ -137,7 +158,6 @@ session_start();
 </p>
 </div> -->
 <div id="header">
-	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>
 	<?php
 			mysql_connect("localhost","root","mridul")
 			or die("<h3>could not connect to MySQL</h3>\n");
@@ -149,9 +169,10 @@ session_start();
 				echo '<div class="content" id="profile_my"><font color="#fff" size="5px">Create a  New Profile</font></div>';		
 			}
 	?>
+	<div class="content" id="logout"><font color="#fff" size="5px">Logout</font></div>
 </div>
 <div id="main-content">
-	<h2><u>Rate the Companies according to the work enviornment and the salary/packages ( out of 5)</u></h2>
+	<h3 style="align:center;" class="btn btn-success">Rate the Companies according to the work enviornment and the salary/packages ( out of 5)</h2>
 	<div id="accordion">
 		<?php
 			mysql_connect("localhost","root","mridul")
@@ -220,10 +241,10 @@ session_start();
 					<td style="position:absolute;">
 					<form action="rate.php" method="post">
 						<table>
-							<tr><td><label>Name</label></td>
+							<tr><td><label>Rating</label></td>
 							<td><input type="number" name="rating" min="1" max="5"></td></tr>
 							<input type="hidden" name="profile" value="'.$a.'.'.$rp.'">
-							<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
+							<tr><td><input class=" btn btn-danger" type="submit" value="submit" name="submit"/></td></tr>
 						</table>
 					</form>
 					</td>

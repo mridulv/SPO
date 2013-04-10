@@ -5,12 +5,29 @@ session_start();
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style5.css" />
+<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <title>Registration Portal</title>
 <style type="text/css">
+h3{
+	font-size:20px;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+	background-color:#ccccff;
+	border:2px solid black;
+	border-radius: 1px;
+	border-collapse:1px;
+}
 #header{
 	position:fixed;
-	margin-top:-10px;
-	margin-left:-10px;
+	margin-top:0px;
+	z-index:1;
+	margin-left:0px;
+	padding:10px 5px 0px 5px;
 	height:35px;
 	width:1900px;
 	background-color: #000000;
@@ -46,23 +63,25 @@ session_start();
 	height:200px;
 }
 .comp-short{
-	border:1px solid #8888ff;
-	background-color: #aaaaff;
-	border-radius: 4px;
 	position:relative;
-	margin-top:10px;
-	width:120px;
-	height:30px;
+	border:2px solid #8888ff;
+	background-color: #aaaaff;
+	padding:10px 10px 10px 10px;
+	border-radius: 4px;
+	margin-top:30px;
+	margin-right:60px;
+	height:50px;
 	cursor:pointer;
+	display:inline;
 }
 #new-pos{
 	position:absolute;
 	padding-left: 20px;
 	padding-top:20px;
-	background-color: #ffffff;
+	background:#fff url(images/bg.jpg) repeat top left;
 	left:0px;
 	top:32px;
-	width:1340px;
+	width:1325px;
 	height:600px;
 }
 #new-pos2{
@@ -89,7 +108,7 @@ session_start();
 	width:1375px;
 	height:635px;
 }
-.close{
+.close-2{
 	position:absolute;
 	right:100px;
 	top:50px;
@@ -107,6 +126,23 @@ session_start();
 	margin-top:-20px;
 	width:820px;
 	height:630px;
+}
+#logout{
+	position:relative;
+	margin-right:10px;
+	width:100px;
+}
+#accordion{
+	position:relative;
+	margin-top:20px;
+}
+.tab{
+	width:1200px;
+	height:500px;
+	border:2px solid black;
+	z-index: 10;
+	background-color:#ffffff;
+	box-shadow: 10px 10px 5px #888888;
 }
 </style>
 <script  type="text/javascript" src="js/jquery.js"></script>
@@ -127,7 +163,7 @@ session_start();
 				$(".comp-detail[alt = "+k+"]").fadeIn(20);
 			});
 		});
-		$(".close").click(function(){
+		$(".close-2").click(function(){
 			console.log(k);
 			$(".comp-detail[alt = "+k+"]").hide(10,function(){
 				$("#full").fadeOut(20,function(){
@@ -140,11 +176,11 @@ session_start();
 </script>
 <body>
 <div id="header">
-	<div class="content" onclick="window.location='logout.php';"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='profile_company.php'";><font color="#fff" size="5px">Create New Profile</font></div>
+	<div class="content" id="logout" onclick="window.location='logout.php';"><font color="#fff" size="5px">Logout</font></div>
 </div>
 <div id="full">
-	<img class="close" src="img/close.png"/>
+	<img class="close-2" src="img/close.png"/>
 </div>
 <div id="new-pos">
 	<?php
@@ -180,10 +216,10 @@ session_start();
 			$h=$row['Sign_In_Bonus'];
 			$i=$row['Shares_Worth'];
 			$j=$row['Company_Rating'];
-			echo '<div id="tabs-'.$p.'">
+			echo '<div class="tab" id="tabs-'.$p.'">
 					<table cellspacing="5" border="0" cellpadding="0">
 					<tr valign="top" align="left">
-					<td width="600" height="500px" style="border:1px solid black;"><p>
+					<td width="600" height="500px" style="border:1px solid black;padding:20px;"><p>
 					<table>
 					<tr><td><label><b>Designation</b></label></td>
 					<td>'.$a.'</td></tr>
@@ -219,25 +255,25 @@ session_start();
 						echo '<p>Students Selected For this Profile</p>';
 						while($rown2=mysql_fetch_array($resultn2)){
 							$r=$rown2['name'];
-							echo '<div class="comp-short">'.$r.'</div>';
+							echo '</br></br></br><div class="comp-short btn btn-primary">'.$r.'</div>';
 						}
 					}
 					else{
-					echo '<p>Students Applied For this Profile</p>
-					<form method="post" action="select.php">';
+					echo '<h3 class="btn btn-success">Students Applied For this Profile</h3>
+					<form class="form-inline" method="post" action="select.php">';
 					$resultn= mysql_query("select * from applied_for NATURAL JOIN student where company_id=".$k." and designation='".$row['designation']."'");
 					$op=0;
 					while($rown=mysql_fetch_array($resultn)){
 						$op++;
 						$r=$rown['name'];
-						echo '<input type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div class="comp-short" alt="'.$op.'">'.$r.'</div>';
+						echo '</br></br></br><input style="float:center;margin-left:20px;" type="checkbox" name="select[]" value="'.$rown['roll'].'.'.$a.'"/><div style="margin-left:20px;" class="comp-short btn btn-primary" alt="'.$op.'">'.$r.'</div>';
 						echo '<div id="new-pos2" class="comp-detail" alt="'.$op.'">';
 						//echo 'See <a href="'.$rown['resume'].'" target="_blank">Here</a>';
 						echo '<iframe id="frame" src="'.$rown['resume'].'"></iframe>';
 						echo '</div>';
 					}
 
-						echo '<input type="submit" value="submit" name="submit"/></form>';
+						echo '</br></br></br><input class="btn btn-danger" type="submit" value="submit" name="submit"/></form>';
 					}
 					
 					echo '</td>

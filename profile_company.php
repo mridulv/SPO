@@ -5,12 +5,17 @@ session_start();
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style5.css" />
+<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <title>Registration Portal</title>
 <style type="text/css">
 #header{
 	position:fixed;
-	margin-top:-10px;
-	margin-left:-10px;
+	padding:10px 45px 0px 5px;
 	height:35px;
 	width:1900px;
 	background-color: #000000;
@@ -86,6 +91,7 @@ session_start();
 }
 .other{
 	position:absolute;
+	margin-left:20px;
 	top:100px;
 }
 </style>
@@ -98,8 +104,8 @@ session_start();
 </script>
 <body>
 <div id="header">
-	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='regis-com.php'"><font color="#fff" size="5px">Back</font></div>
+	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 </div>
 <div class="other">
 	<form action="fill_profile_company.php" method="get" id="usrform">
@@ -126,7 +132,7 @@ session_start();
 		<td><input type="text" name="bonus"/></td></tr>
 		<tr><td><label>Shares Worth (optional) (in lakhs)</label></td>
 		<td><input type="text" name="shares"/></td></tr>
-		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
+		<tr><td><input class="btn btn-danger"  type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>
 </div>

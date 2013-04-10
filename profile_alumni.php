@@ -4,21 +4,26 @@ or die("<h3>could not connect to MySQL</h3>\n");
 mysql_select_db("test")
 or die("<h3>could not select database 'test'</h3>\n");
 if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'alumni')){
-	$result= mysql_query("select * from student where roll=".$_COOKIE['user']);
+	$result= mysql_query("select * from alumni where alumni_id=".$_COOKIE['user']);
 	while($row=mysql_fetch_array($result)){
-		header("location: regis.php");		
+		header("location: alumni_rate.php");		
 	}
 	session_start();
 ?>
 <html>
 <head>
 <link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style5.css" />
+<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/main.css" />
 <title>Registration Portal</title>
 <style type="text/css">
 #header{
 	position:fixed;
-	margin-top:-10px;
-	margin-left:-10px;
+	padding:10px 5px 0px 5px;
 	height:35px;
 	width:1900px;
 	background-color: #000000;
@@ -94,6 +99,8 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'alumni')){
 }
 .other{
 	position:absolute;
+	margin-top:30px;
+	margin-left:30px;
 	top:100px;
 }
 </style>
@@ -106,8 +113,8 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'alumni')){
 </script>
 <body>
 <div id="header">
-	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 	<div class="content" onclick="window.location='alumni_rate.php'"><font color="#fff" size="5px">Back</font></div>
+	<div class="content" onclick="window.location='logout.php'"><font color="#fff" size="5px">Logout</font></div>
 </div>
 <div class="other">
 	<form action="fill_profile_alumni.php" method="post">
@@ -135,7 +142,7 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'alumni')){
 		</select></td></tr>
 		<tr><td><label>Office Address</label></td>
 		<td><input type="text" name="address"/></td></tr>
-		<tr><td><input type="submit" value="submit" name="submit"/></td></tr>
+		<tr><td><input class="btn btn-danger" type="submit" value="submit" name="submit"/></td></tr>
 		</table>
 	</form>
 </div>
