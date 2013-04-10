@@ -150,6 +150,19 @@ if (isset($_COOKIE['user']) && !strcmp($_COOKIE['role'],'student')){
 		</select></td></tr>
 		<tr><td><label>CPI</label></td>
 		<td><input type="text" name="cpi"/></td></tr>
+		<tr><td><label>Faculty Supervisor</label></td>
+		<td><select name="fac">
+			<?php
+			mysql_connect("localhost","root","mridul")
+			or die("<h3>could not connect to MySQL</h3>\n");
+			mysql_select_db("test")
+			or die("<h3>could not select database 'test'</h3>\n");
+			$resultww= mysql_query("select * from faculty");
+			while($rowww=mysql_fetch_array($resultww)){
+				echo '<option value="'.$rowww['faculty_id'].'">'.$rowww['name'].'</option></br>';
+			}
+			?>
+		</select></td></tr>
 		<tr><td><label>Upload Resume</label></td>
 		<td><input type="file" name="resume"/></td></tr>
 		<tr><td><input class="btn btn-danger" type="submit" value="submit" name="submit"/></td></tr>

@@ -13,9 +13,11 @@
 		$c=$_REQUEST['dept'];
 		$d=$_REQUEST['cpi'];
 		$f=$_REQUEST['degree'];
+		$r=$_REQUEST['fac'];
 		
 		$result=mysql_query("insert into student values('$b','$a','$target','0')");
 		$result2=mysql_query("insert into student_degree values('$b','$f','$d','$c')");
+		$result3=mysql_query("insert into supervises values('$b','$r','8','2012-2013')");
 
 		if (file_exists("resume/" . $_FILES["resume"]["name"]))
 	    {
