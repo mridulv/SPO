@@ -35,6 +35,7 @@ session_start();
 	border:2px solid black;
 	width:1200px;
 	height:500px;
+	box-shadow: 10px 10px 5px #888888;
 	overflow: auto;
 }
 #company-content{
@@ -242,7 +243,7 @@ h3{
 					<form action="rate.php" method="post">
 						<table>
 							<tr><td><label>Rating</label></td>
-							<td><input type="number" name="rating" min="1" max="5"></td></tr>
+							<td><input style="height:30px;" type="number" name="rating" min="1" max="5"></td></tr>
 							<input type="hidden" name="profile" value="'.$a.'.'.$rp.'">
 							<tr><td><input class=" btn btn-danger" type="submit" value="submit" name="submit"/></td></tr>
 						</table>

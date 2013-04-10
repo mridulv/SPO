@@ -36,6 +36,7 @@ session_start();
 	border:2px solid black;
 	width:1200px;
 	height:500px;
+	box-shadow: 10px 10px 5px #888888;
 	overflow: auto;
 	z-index:4;
 }
@@ -166,7 +167,7 @@ session_start();
 	<div class="detail-app">
 			<form action="add_alumni.php" method="post">
 				Username : <input type="text" name="user" required="required"/></br>
-				Company Id : <input type="text" name="id" required="required"/></br>
+				Alumni Id : <input type="text" name="id" required="required"/></br>
 				Password : <input type="password" name="pass" required="required"/></br>
 				Confirm Password : <input type="password" name="pass2" required="required"/></br>
 				<input class="btn btn-danger" type="submit" value="submit" name="submit"/>

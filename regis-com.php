@@ -74,6 +74,18 @@ h3{
 	cursor:pointer;
 	display:inline;
 }
+.comp-short2{
+	position:relative;
+	border:2px solid #8888ff;
+	background-color: #aaaaff;
+	padding:10px 10px 10px 10px;
+	border-radius: 4px;
+	margin-top:30px;
+	margin-right:60px;
+	height:50px;
+	cursor:pointer;
+	display:inline;
+}
 #new-pos{
 	position:absolute;
 	padding-left: 20px;
@@ -252,10 +264,10 @@ h3{
 
 					$resultn2= mysql_query("select * from company_hires NATURAL JOIN student where company_id=".$k." and designation='".$row['designation']."'");
 					if (mysql_num_rows($resultn2) !=0){
-						echo '<p>Students Selected For this Profile</p>';
+						echo '<h3 class="btn btn-success">Students Selected For this Profile</h3>';
 						while($rown2=mysql_fetch_array($resultn2)){
 							$r=$rown2['name'];
-							echo '</br></br></br><div class="comp-short btn btn-primary">'.$r.'</div>';
+							echo '</br></br></br><div class="comp-short2 btn btn-primary">'.$r.'</div>';
 						}
 					}
 					else{

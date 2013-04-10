@@ -113,7 +113,7 @@ session_start();
 		<tr><td><label>Designation</label></td>
 		<td><input type="text" name="desig" required="required"/></td></tr>
 		<tr><td><label>Number of Posts</label></td>
-		<td><input type="number" name="num_posts" required="required"/></td></tr>
+		<td><input type="number" style="height:30px;"name="num_posts" required="required"/></td></tr>
 		<tr><td><label>Description Of the Profile</label></td>
 		<td><textarea rows="4" cols="50" name="profile" form="usrform">Enter text here...</textarea></td></tr>	
 		<tr><td><label>Departments of Students ( seperated by comma )</label></td>
@@ -122,8 +122,8 @@ session_start();
 		<td><input type="text" name="degr" required="required" placeholder="Btech,Mtech(Dual),Mtech"/></td></tr>
 		<tr><td><label>Min. CPI </label></td>
 		<td><input type="text" name="min_cpi" required="required"/></td></tr>
-		<tr><td><label>Max. CPI (optional)</label></td>
-		<td><input type="text" name="max_cpi"/></td></tr>
+		<tr><td><label>Max. CPI</label></td>
+		<td><input type="text" name="max_cpi" required="required"/></td></tr>
 		<tr><td><label>Basic (optional) (in lakhs)</label></td>
 		<td><input type="text" name="basic"/></td></tr>
 		<tr><td><label>HRA (optional) (in lakhs)</label></td>
